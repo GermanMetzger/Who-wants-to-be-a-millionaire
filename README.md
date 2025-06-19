@@ -12,7 +12,11 @@ A fun and interactive version of the classic quiz game **"Who Wants to Be a Mill
 
 ## 📸 Screenshots
 ![imagen](https://github.com/user-attachments/assets/93dfbbf0-f888-4d8a-94a1-9b9dab23b96e)
+
+
 ![imagen](https://github.com/user-attachments/assets/e686c78c-e2fd-4ea1-9236-b45fdf577e86)
+
+
 ![imagen](https://github.com/user-attachments/assets/09fb7776-a069-4c71-82de-7d8dc31c4aab)
 
 <!-- You can add your images inside a folder like /assets and link them below -->
