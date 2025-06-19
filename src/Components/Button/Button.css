@@ -1,0 +1,84 @@
+.button-inactivo {
+    background-color: rgb(0, 0, 0, 0.4);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 20px;
+    color: white;
+    width: 600px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.button-activo {
+    background-color: rgba(146, 16, 221, 0.719);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 20px;
+    color: white;
+    width: 600px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.button-descartado{
+    display: none;
+}
+
+.button-correcto {
+    background-color: rgba(12, 255, 32, 0.719);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 20px;
+    color: white;
+    width: 600px;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.button-inactivo:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 20px;
+    color: white;
+    width: 600px;
+    cursor: pointer;
+}
+
+.boton-chiquito{
+    background-color: rgb(0, 0, 0, 0.4);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 10px;
+    margin-top: 20px;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.boton-chiquito:hover{
+    background-color: rgba(202, 202, 202, 0.4);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 10px;
+    margin-top: 20px;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    z-index: 0;
+}
+
+@media (max-width: 1000px) {
+.button-inactivo {
+    background-color: rgb(0, 0, 0, 0.4);
+    border: 1px solid white;
+    border-radius: 50px;
+    padding: 20px;
+    color: white;
+    width: 600px;
+    cursor: pointer;
+    z-index: 0;
+    max-width: 50%;
+}
+}

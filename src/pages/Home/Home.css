@@ -1,0 +1,119 @@
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 2;
+    min-height: 90vh;
+    padding-top: 0px;
+}
+
+.titulo {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    max-width: 25vw;
+    /* Cambiado a vw para ser relativo */
+    font-size: 4vw;
+    /* Tamaño de fuente relativo */
+    animation: respirar 2s infinite ease-in-out;
+    position: absolute;
+    top: 2%;
+    z-index: -1;
+}
+
+@keyframes respirar {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.edicion {
+    display: flex;
+    width: auto;
+    height: auto;
+    max-width: 40vw;
+    /* Igual que .titulo */
+    margin-left: 20vw;
+    /* Relativo al ancho de pantalla */
+    position: absolute;
+    top: 30%;
+    font-family: 'Bebas Neue', Impact, Arial, sans-serif;
+    color: #ffe6b0;
+    font-size: 2.5vw;
+    /* Relativo, puedes ajustar el valor */
+    letter-spacing: 0.2vw;
+    text-shadow: 2px 2px 6px #000;
+    z-index: -1;
+}
+
+.boton-sonido {
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 2px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 30px;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 60px;
+}
+
+/* Media query para pantallas chicas */
+@media (max-width: 1000px) {
+    .titulo {
+        max-width: 50vw;
+        font-size: 10vw;
+    }
+
+    .edicion {
+        max-width: 60vw;
+        font-size: 10vw;
+        margin-left: 20vw;
+        top: 25%;
+        transform: translateY(-25%);
+    }
+
+    .botones {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .boton-sonido {
+        background-color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        padding: 2px;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        bottom: 80px;
+    }
+}

@@ -1,0 +1,56 @@
+.comodin-activo{
+    height: 60px;
+    width: 60px;
+    border-radius: 200px;
+    background-color: rgb(139, 50, 255);
+    border: 5px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.comodin-activo:hover{
+    height: 61px;
+    width: 61px;
+    border-radius: 200px;
+    background-color: rgb(255, 230, 90);
+    border: 6px solid rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.comodin-inactivo{
+    height: 60px;
+    width: 60px;
+    border-radius: 200px;
+    background-color: rgb(129, 129, 129);
+    border: 5px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.espacio-comodin{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 15px;
+}
+
+@media (max-width: 1000px) {
+    .espacio-comodin{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px;
+}
+}

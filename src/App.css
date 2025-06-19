@@ -1,0 +1,58 @@
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("../public/fondo.png");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  backdrop-filter: blur(5px);
+  color: white;
+}
+
+.fondo {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  width: 100%;
+  height: 130%;
+}
+
+.oscurecer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (max-width: 1000px) {
+  .fondo {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    width: 100%;
+    height: 90%;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    height: 80;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("../public/fondo.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    backdrop-filter: blur(5px);
+    color: white;
+  }
+}
