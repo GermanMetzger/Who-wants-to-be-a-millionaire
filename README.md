@@ -1,35 +1,141 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🧠 Who Wants to Be a Millionaire 🎉
 
-## Available Scripts
+DEMO: https://who-wants-to-be-a-millionaire-nine.vercel.app/
 
-In the project directory, you can run:
 
-### `npm start`
+A fun and interactive version of the classic quiz game **"Who Wants to Be a Millionaire?"** built with React.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+## 🚀 Features
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 🎮 Multiple-choice trivia game
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- 🧩 Lifelines: 50/50, Ask the Audience, Phone a Friend, and Question Swap
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 🏆 Prize ladder progression system
 
-### `npm run eject`
+- 🔊 Engaging sound effects and animations
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 🎨 Clean and modern user interface
+
+
+
+## 📸 Screenshots
+
+
+
+<!-- You can add your images inside a folder like /assets and link them below -->
+
+![Home Screen](https://github.com/user-attachments/assets/93dfbbf0-f888-4d8a-94a1-9b9dab23b96e)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![Gameplay Screen](https://github.com/user-attachments/assets/09fb7776-a069-4c71-82de-7d8dc31c4aab)
+
+## 🛠️ Technologies Used
+
+
+
+- React
+
+- HTML5 + CSS3
+
+- JavaScript (ES6+)
+
+- [canvas-confetti](https://github.com/catdad/canvas-confetti) for visual effects
+
+
+
+## 📂 How to Run the Project
+
+
+
+1. Clone the repository:
+
+   ```bash
+
+   git clone https://github.com/GermanMetzger/Who-wants-to-be-a-millionaire.git
+
+
+
+    Navigate to the project folder:
+
+
+
+cd Who-wants-to-be-a-millionaire
+
+
+
+Install dependencies:
+
+
+
+npm install
+
+
+
+Start the development server:
+
+
+
+    npm start
+
+
+
+The app should now be running at http://localhost:3000.
+
+📌 To Do
+
+
+
+Add sound toggle option
+
+
+
+Improve mobile responsiveness
+
+
+
+    Add database support for tracking scores
+
+
+
+🙌 Contributing
+
+
+
+Feel free to fork this repo and submit pull requests. Ideas, bug reports, and feedback are welcome!
+
+📄 License
+
+
+
+This project is open-source and available under the MIT License.
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+
+
+### `npm run build` fails to minify
+
+
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify, you can’t go back!**
 
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
