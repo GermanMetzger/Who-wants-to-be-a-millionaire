@@ -71,30 +71,18 @@ A fun and interactive version of the classic quiz game **"Who Wants to Be a Mill
 
    git clone https://github.com/GermanMetzger/Who-wants-to-be-a-millionaire.git
 
+   
+Navigate to the project folder:
 
-
-    Navigate to the project folder:
-
-
-
-cd Who-wants-to-be-a-millionaire
-
-
+    cd Who-wants-to-be-a-millionaire
 
 Install dependencies:
 
-
-
-npm install
-
-
+    npm install
 
 Start the development server:
 
-
-
     npm start
-
 
 
 The app should now be running at http://localhost:3000.
@@ -110,8 +98,7 @@ Add sound toggle option
 Improve mobile responsiveness
 
 
-
-    Add database support for tracking scores
+Add database support for tracking scores
 
 
 
