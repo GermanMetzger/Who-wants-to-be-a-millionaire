@@ -244,7 +244,7 @@ export default function Game() {
                 if (fondoRef.current) {
                     fondoRef.current.muted = musicaMuteada;
                 }
-                if (nuevoIndice === 10) {
+                if (puntajeActual === 10) {
                     setResultadoFInal(true);
                 } else {
                     partida()
@@ -280,7 +280,6 @@ export default function Game() {
     const cambioPregunta = () => {
         const nuevoIndice = preguntaActual + 1;
         setPreguntaActual(nuevoIndice);
-        console.log("pregunta actual", nuevoIndice);
         setPreguntaSeleccionada(quiz[nuevoIndice]);
         partida();
         setEstadoCambio(false);
