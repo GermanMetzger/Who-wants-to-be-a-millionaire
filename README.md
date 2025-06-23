@@ -68,9 +68,8 @@ A fun and interactive version of the classic quiz game **"Who Wants to Be a Mill
 1. Clone the repository:
 
    ```bash
-
+   
    git clone https://github.com/GermanMetzger/Who-wants-to-be-a-millionaire.git
-
    
 Navigate to the project folder:
 
