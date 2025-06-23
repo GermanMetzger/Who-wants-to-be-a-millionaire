@@ -1,6 +1,6 @@
 import React from 'react'
 import './InfoVentana.css'
-import llamada from '../../assets/phone.svg'
+import busqueda from '../../assets/globe.svg'
 import cincuentaCincuenta from '../../assets/50_50.svg'
 import publico from '../../assets/publico.svg'
 import cambio from '../../assets/cambio.svg'
@@ -23,7 +23,7 @@ export default function InfoVentana() {
 
                 <div>
                     <h3>Lifelines</h3>
-                    <p><img src={llamada} alt="phone" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = You have 45 seconds to call someone for help with the question</p>
+                    <p><img src={busqueda} alt="search" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = search the question in the web</p>
                     <p><img src={cincuentaCincuenta} alt="50/50" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = Remove two incorrect answers</p>
                     <p><img src={publico} alt="audience" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = Ask the audience for their opinion</p>
                     <p><img src={cambio} alt="switch" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = Switch the current question</p>

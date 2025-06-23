@@ -12,8 +12,8 @@ import Carrera from '../../Components/Carrera/Carrera.jsx'
 import confetti from 'canvas-confetti';
 import ResultadoFinal from '../../Components/ResultadoFinal/ResultadoFinal.jsx'
 import PublicoVentana from '../../Components/PublicoVentana/PublicoVentana.jsx'
-import LlamadaVentana from '../../Components/llamadaVentana/LlamadaVentana.jsx'
 import useGetQuiz from "../../services/Quiz/useGetQuiz.js";
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -24,7 +24,12 @@ import useGetQuiz from "../../services/Quiz/useGetQuiz.js";
 
 
 export default function Game() {
-    const { quiz, loading, error } = useGetQuiz();
+    const location = useLocation();
+    const categoria = location.state?.categoria;
+    const dificultad = location.state?.dificultad;
+
+
+    const { quiz, loading, error } = useGetQuiz(categoria, dificultad);
     const [preguntas, setPreguntas] = React.useState(quiz || []);
     const [preguntaActual, setPreguntaActual] = React.useState(0);
     const [preguntaSeleccionada, setPreguntaSeleccionada] = React.useState({});
@@ -41,7 +46,7 @@ export default function Game() {
     const [carreraAbierta, setCarreraAbierta] = React.useState(false);
     const [resultadoFInal, setResultadoFInal] = React.useState(false);
     const [puntaje, setPuntaje] = React.useState(0);
-    const [estadoLlamada, setEstadoLlamada] = React.useState(true)
+    const [estadoBusqueda, setEstadoBusqueda] = React.useState(true)
     const [estado50_50, setEstado50_50] = React.useState(true)
     const [estadoPublico, setEstadoPublico] = React.useState(true)
     const [estadoCambio, setEstadoCambio] = React.useState(true)
@@ -49,7 +54,6 @@ export default function Game() {
     const [musicaMuteada, setMusicaMuteada] = React.useState(false);
     const [respuestasOcultas, setRespuestasOcultas] = React.useState([]);
     const [verPublico, setVerPublico] = React.useState(false);
-    const [verLlamada, setVerLlamada] = React.useState(false);
     const [indiceRespuesta, setIndiceRespuesta] = React.useState(null);
     const [respuestasMezcladas, setRespuestasMezcladas] = React.useState([]);
 
@@ -61,6 +65,7 @@ export default function Game() {
     const incorrectoRef = useRef(null);
     const fondoRef = useRef(null);
     const BombRef = useRef(null);
+
 
 
 
@@ -208,10 +213,10 @@ export default function Game() {
             fondoRef.current.muted = true;
         }
         if (respuesta) {
-            setPuntaje(prev => prev + 1);
+            const puntajeActual = puntaje + 1;
+            setPuntaje(puntajeActual);
             const nuevoIndice = preguntaActual + 1;
             setPreguntaActual(nuevoIndice);
-            console.log("pregunta actual", nuevoIndice);
 
             if (BombRef.current) {
                 BombRef.current.play();
@@ -232,13 +237,17 @@ export default function Game() {
 
             setTimeout(() => {
                 setRespuestasOcultas([]);
-                partida();
                 setBloquearRespuestas(false);
                 setIndiceCorrecto(null);
                 setCarreraAbierta(false);
                 setPreguntaSeleccionada(quiz[nuevoIndice]);
                 if (fondoRef.current) {
                     fondoRef.current.muted = musicaMuteada;
+                }
+                if (nuevoIndice === 10) {
+                    setResultadoFInal(true);
+                } else {
+                    partida()
                 }
             }, 10000);
         } else {
@@ -258,6 +267,8 @@ export default function Game() {
 
         }
     }
+
+
 
     function getEstadoRespuesta(i) {
         if (respuestasOcultas.includes(i)) return "button-descartado";
@@ -313,9 +324,9 @@ export default function Game() {
         setRespuestasOcultas(seleccionadas);
     }
 
-    const usarLlamada = () => {
-        setEstadoLlamada(false);
-        setVerLlamada(true);
+    const usarBusqueda = () => {
+        window.open("https://www.google.com/search?q="+decodeHTML(preguntaSeleccionada?.question))
+        setEstadoBusqueda(false)
     }
 
     function decodeHTML(html) {
@@ -332,8 +343,8 @@ export default function Game() {
 
 
 
-    if (loading) return <div>loading...</div>;
-    if (error) return <div>Error, please press f5: {error.message}</div>;
+    if (loading) return <img className='loading' src="https://i.gifer.com/ZNeT.gif" alt="Loading" />;
+    if (error) return <div className='loading' >Error, please press f5 😞</div>;
 
 
     return (
@@ -343,7 +354,7 @@ export default function Game() {
             <audio ref={BombRef} src={bomb} />
             <audio ref={fondoRef} src={musicaActual} autoPlay loop></audio>
             <header>
-                <Comodin tipo="llamada" onClick={usarLlamada} estadoComodin={estadoLlamada} />
+                <Comodin tipo="busqueda" onClick={usarBusqueda} estadoComodin={estadoBusqueda} />
                 <Comodin tipo="50/50" onClick={usar50_50} estadoComodin={estado50_50} />
                 <Comodin tipo="publico" onClick={usarPublico} estadoComodin={estadoPublico} />
                 <Comodin tipo="cambio" onClick={cambioPregunta} estadoComodin={estadoCambio} />
@@ -352,7 +363,6 @@ export default function Game() {
             {carreraAbierta && <Carrera puntaje={puntaje} cerrarVentana={cerrarVentanaCarrera} />}
             {resultadoFInal && <ResultadoFinal puntaje={puntaje} />}
             {verPublico && <PublicoVentana indiceRespuesta={indiceRespuesta} />}
-            {verLlamada && <LlamadaVentana />}
             <div className='pregunta'>
                 <h1 className={mostrarPregunta ? "fade-in" : "fade-out"}>
                     {mostrarPregunta && decodeHTML(preguntaSeleccionada?.question)}

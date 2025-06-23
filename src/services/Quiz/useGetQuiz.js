@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
 
-const useGetQuiz = () => {
+const useGetQuiz = (categoria, dificultad) => {
   const [quiz, setQuiz] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  if(categoria === "Any Category"){
+    categoria = "";
+  }
 
 
   useEffect(() => {
@@ -14,7 +18,8 @@ const useGetQuiz = () => {
         const response = await axiosInstance('/api.php', {
           amount: 11,
           type: "multiple",
-          category: 15
+          difficulty: dificultad.toLowerCase(),
+          category: categoria
         });
         setQuiz(response.results);
       } catch (err) {
@@ -29,7 +34,7 @@ const useGetQuiz = () => {
     };
 
     fetchQuiz();
-  }, []);
+  }, [categoria, dificultad]);
 
   return { quiz, loading, error };
 };

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import './Comodin.css'
-import llamada from '../../assets/phone.svg'
+import busqueda from '../../assets/globe.svg'
 import cincuentaCincuenta from '../../assets/50_50.svg'
 import publico from '../../assets/publico.svg'
 import cambio from '../../assets/cambio.svg'
@@ -11,9 +11,8 @@ export default function Comodin({ tipo, onClick, estadoComodin }) {
     const [src, setSrc] = useState('');
 
     useEffect(() => {
-        if (tipo === 'llamada') {
-            setSrc(llamada);
-            console.log(llamada);
+        if (tipo === 'busqueda') {
+            setSrc(busqueda);
         } else if (tipo === '50/50') {
             setSrc(cincuentaCincuenta);
         } else if (tipo === 'publico') {
@@ -23,7 +22,7 @@ export default function Comodin({ tipo, onClick, estadoComodin }) {
         }
     }, [tipo]); 
 
-const tipoTraducido = tipo === 'llamada' ? 'phone'
+const tipoTraducido = tipo === 'busqueda' ? 'search'
                     : tipo === '50/50' ? 'fifty-fifty'
                     : tipo === 'publico' ? 'audience'
                     : tipo === 'cambio' ? 'switch'

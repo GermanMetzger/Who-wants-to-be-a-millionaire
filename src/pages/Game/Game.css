@@ -75,6 +75,18 @@ header {
     transition: opacity 0.8s;
 }
 
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Bebas Neue', Impact, Arial, sans-serif;
+    font-size: x-large;
+}
+
 @keyframes fadeOutInicio {
     0% {
         opacity: 1;
