@@ -22,3 +22,15 @@
     width: 100%;
     pointer-events: none;
 }
+
+@media (max-width: 1000px) {
+    .score-box-big {
+        width: 70vw;
+        height: 20vh;
+        min-width: 180px;
+        min-height: 60px;
+    }
+    .score-number {
+        font-size: 5rem;
+    }
+}
