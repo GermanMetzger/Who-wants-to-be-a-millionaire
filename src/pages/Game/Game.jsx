@@ -7,14 +7,15 @@ import musica2 from '../../assets/fondoJuego2.mp3'
 import correcto from '../../assets/Correcto.mp3'
 import incorrecto from '../../assets/Incorrecto.mp3'
 import bomb from '../../assets/Bomb.mp3'
+import back from "../../assets/Back.svg"
 import InfoVentana from '../../Components/InfoVentana/InfoVentana.jsx'
 import Carrera from '../../Components/Carrera/Carrera.jsx'
 import confetti from 'canvas-confetti';
 import ResultadoFinal from '../../Components/ResultadoFinal/ResultadoFinal.jsx'
 import PublicoVentana from '../../Components/PublicoVentana/PublicoVentana.jsx'
 import useGetQuiz from "../../services/Quiz/useGetQuiz.js";
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import ScoreBox from '../../Components/ScoreBox/ScoreBox.jsx'
 
 
 
@@ -27,9 +28,13 @@ export default function Game() {
     const location = useLocation();
     const categoria = location.state?.categoria;
     const dificultad = location.state?.dificultad;
+    const infinito = location.state?.infinito;
+    let cantidad = 0;
+    if (infinito) { cantidad = 50 } else { cantidad = 11 }
+    const navigate = useNavigate()
 
 
-    const { quiz, loading, error } = useGetQuiz(categoria, dificultad);
+    const { quiz, loading, error } = useGetQuiz(categoria, dificultad, cantidad);
     const [preguntas, setPreguntas] = React.useState(quiz || []);
     const [preguntaActual, setPreguntaActual] = React.useState(0);
     const [preguntaSeleccionada, setPreguntaSeleccionada] = React.useState({});
@@ -56,6 +61,9 @@ export default function Game() {
     const [verPublico, setVerPublico] = React.useState(false);
     const [indiceRespuesta, setIndiceRespuesta] = React.useState(null);
     const [respuestasMezcladas, setRespuestasMezcladas] = React.useState([]);
+    const [modoInfinito, setModoInfinito] = React.useState(infinito);
+    const [record, setRecord] = React.useState(localStorage.getItem('record') || 0);
+    const [mostrarPuntaje, setMostrarPuntaje] = React.useState(false);
 
 
 
@@ -153,6 +161,9 @@ export default function Game() {
                     return !prev;
                 });
             }
+            if (event.key === 'Escape') {
+                navigate("/")
+            }
 
         }
 
@@ -213,8 +224,7 @@ export default function Game() {
             fondoRef.current.muted = true;
         }
         if (respuesta) {
-            const puntajeActual = puntaje + 1;
-            setPuntaje(puntajeActual);
+            const puntajeActual = puntaje;
             const nuevoIndice = preguntaActual + 1;
             setPreguntaActual(nuevoIndice);
 
@@ -225,26 +235,37 @@ export default function Game() {
                 if (correctoRef.current) {
                     correctoRef.current.play();
                 }
+
+
                 setIndiceCorrecto(indice);
                 confetiIzq();
                 setTimeout(confetiDer, 1000);
                 setActivo(null);
             }, 5000);
 
-            setTimeout(() => {
-                setCarreraAbierta(true);
-            }, 7000);
+            if (!infinito) {
+                setTimeout(() => {
+                    setCarreraAbierta(true);
+                    setPuntaje(puntajeActual + 1);
+                }, 7000);
+            } else {
+                setTimeout(() => {
+                    setMostrarPuntaje(true)
+                    setPuntaje(puntajeActual + 1);
+                }, 7000);
+            }
 
             setTimeout(() => {
                 setRespuestasOcultas([]);
                 setBloquearRespuestas(false);
                 setIndiceCorrecto(null);
                 setCarreraAbierta(false);
+                setMostrarPuntaje(false)
                 setPreguntaSeleccionada(quiz[nuevoIndice]);
                 if (fondoRef.current) {
                     fondoRef.current.muted = musicaMuteada;
                 }
-                if (puntajeActual === 10) {
+                if (puntajeActual + 1 === 10 && !infinito) {
                     setResultadoFInal(true);
                 } else {
                     partida()
@@ -266,6 +287,8 @@ export default function Game() {
             }, 5000);
 
         }
+
+
     }
 
 
@@ -324,7 +347,7 @@ export default function Game() {
     }
 
     const usarBusqueda = () => {
-        window.open("https://www.google.com/search?q="+decodeHTML(preguntaSeleccionada?.question))
+        window.open("https://www.google.com/search?q=" + decodeHTML(preguntaSeleccionada?.question))
         setEstadoBusqueda(false)
     }
 
@@ -332,6 +355,10 @@ export default function Game() {
         const txt = document.createElement("textarea");
         txt.innerHTML = html;
         return txt.value;
+    }
+
+    const cerrarVentana = () => {
+        setVentanaInfoAbierta(false);
     }
 
 
@@ -357,15 +384,18 @@ export default function Game() {
                 <Comodin tipo="50/50" onClick={usar50_50} estadoComodin={estado50_50} />
                 <Comodin tipo="publico" onClick={usarPublico} estadoComodin={estadoPublico} />
                 <Comodin tipo="cambio" onClick={cambioPregunta} estadoComodin={estadoCambio} />
+                <div className="Hscore-box">High Score: {record}</div>
+                {!mostrarPuntaje && <div className="score-box">Score: {puntaje}</div>}
             </header>
-            {ventanaInfoAbierta && <InfoVentana />}
+            {ventanaInfoAbierta && <InfoVentana cerrarVentana={cerrarVentana} />}
             {carreraAbierta && <Carrera puntaje={puntaje} cerrarVentana={cerrarVentanaCarrera} />}
-            {resultadoFInal && <ResultadoFinal puntaje={puntaje} />}
+            {resultadoFInal && <ResultadoFinal puntaje={puntaje} infinito={infinito} />}
             {verPublico && <PublicoVentana indiceRespuesta={indiceRespuesta} />}
-            <div className='pregunta'>
-                <h1 className={mostrarPregunta ? "fade-in" : "fade-out"}>
-                    {mostrarPregunta && decodeHTML(preguntaSeleccionada?.question)}
-                </h1>
+            {mostrarInicio && <div className="inicio" />}
+            {mostrarPuntaje && <ScoreBox score={puntaje} />}
+            <div className={mostrarPregunta ? "fade-in pregunta" : "fade-out pregunta"}>
+                {mostrarPregunta && decodeHTML(preguntaSeleccionada?.question)}
+
             </div>
             <div className='respuesta'>
                 {respuestasMezcladas.map((respuesta, i) =>
@@ -386,7 +416,6 @@ export default function Game() {
                     )
                 )}
             </div>
-            {mostrarInicio && <div className="inicio" />}
         </div>
     )
 }

@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './Home.css'
 import titulo from '../../assets/titulo.png'
 import musica from '../../assets/menuA.mp3'
-import mute from '../../assets/Mute.png'
-import sonido from '../../assets/Sonido.png'
+import mute from '../../assets/Mute.svg'
+import info from '../../assets/info.svg'
+import sonido from '../../assets/Sonido.svg'
 import Button from '../../Components/Button/Button'
+import InfoVentana from '../../Components/InfoVentana/InfoVentana'
 import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
@@ -12,6 +14,8 @@ export default function Home() {
   const [muted, setMuted] = useState(false)
   const [dificultad, setDificultad] = useState('Easy')
   const [categoria, setCategoria] = useState("Any Category")
+  const [infinito, setInfinito] = useState(false)
+  const [mostrarInfoVentana, setMostrarInfoVentana] = useState(false)
   const navigate = useNavigate()
 
   const categorias = {
@@ -41,12 +45,40 @@ export default function Home() {
     32: "Entertainment: Cartoon & Animations"
   }
 
-  const toggleMute = () => {
-    setMuted(prev => !prev)
-    if (audioRef.current) {
-      audioRef.current.muted = !muted
-    }
+
+  const cerrarVentana = () => {
+  setMostrarInfoVentana(false);
   }
+
+const toggleMute = () => {
+  setMuted(prev => {
+    const nuevoMuted = !prev;
+    if (audioRef.current) {
+      audioRef.current.muted = nuevoMuted;
+      if (!nuevoMuted && audioRef.current.paused) {
+        audioRef.current.play();
+      }
+    }
+    return nuevoMuted;
+  });
+};
+
+  useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (e.key === "i") { 
+      setMostrarInfoVentana(prev => !prev); 
+    }
+    if (e.key === "m") { 
+      toggleMute(); 
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, []);
 
   const changeDificult = () => {
     if (dificultad === 'Easy') {
@@ -58,21 +90,39 @@ export default function Home() {
     }
   }
 
-const changeCategory = () => {
-  const keys = Object.keys(categorias);
-  if (categoria === "Any Category") {
-    setCategoria(keys[0]);
-    return;
+  const changeCategory = () => {
+    const keys = Object.keys(categorias);
+    if (categoria === "Any Category") {
+      setCategoria(keys[0]);
+      return;
+    }
+    const idx = keys.indexOf(categoria.toString());
+    const nextIdx = (idx + 1) % keys.length;
+    setCategoria(keys[nextIdx]);
+  };
+
+
+  const mostrarInfo = () => {
+    if(mostrarInfoVentana) {
+      setMostrarInfoVentana(false);
+    } else {
+      setMostrarInfoVentana(true);
+    }
   }
-  const idx = keys.indexOf(categoria.toString());
-  const nextIdx = (idx + 1) % keys.length;
-  setCategoria(keys[nextIdx]);
-};
+
+  const changeMode = () =>{
+    if(infinito){
+      setInfinito(false)
+    }else{
+      setInfinito(true)
+    }
+  }
 
   return (
+    <>
+      {mostrarInfoVentana && <InfoVentana cerrarVentana={cerrarVentana} />}
     <div className='menu'>
       <img src={titulo} alt="titulo" className='titulo' />
-
       <audio ref={audioRef} src={musica} autoPlay loop></audio>
       <div className='botones'>
         <Button
@@ -81,22 +131,30 @@ const changeCategory = () => {
             navigate('/game', {
               state: {
                 categoria,
-                dificultad
+                dificultad,
+                infinito
               }
             });
           }}
         />
         <Button children={"Dificult: " + dificultad} onClick={() => { changeDificult() }} />
         <Button children={"Category: " + (categoria === "Any Category" ? "Any Category" : categorias[categoria])} onClick={() => { changeCategory() }} />
+        <Button children={"Mode: " + (infinito ? "Infinite" : "Normal")} onClick={() => { changeMode() }} />
       </div>
-      <button onClick={toggleMute} className='boton-sonido'>
-        <img
-          src={muted ? mute : sonido}
-          alt={muted ? "Sin sonido" : "Con sonido"}
-          style={{ width: 50, height: 50, marginTop: -2, marginLeft: -2 }}
-          draggable={false}
-        />
-      </button>
+      <div className='botones-configuracion'>
+        <button onClick={toggleMute} className='boton-sonido'>
+          <img
+            src={muted ? mute : sonido}
+            alt={muted ? "Sin sonido" : "Con sonido"}
+            style={{ width: 50, height: 50, marginTop: -2, marginLeft: -2 }}
+            draggable={false}
+          />
+        </button>
+        <button onClick={mostrarInfo} className='boton-info'>
+          <img src={info} alt="Info" />
+        </button>
+      </div>
     </div>
+    </>
   )
 }

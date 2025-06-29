@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
 
-const useGetQuiz = (categoria, dificultad) => {
+const useGetQuiz = (categoria, dificultad, cantidad) => {
   const [quiz, setQuiz] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const useGetQuiz = (categoria, dificultad) => {
       try {
         setLoading(true);
         const response = await axiosInstance('/api.php', {
-          amount: 11,
+          amount: cantidad,
           type: "multiple",
           difficulty: dificultad.toLowerCase(),
           category: categoria

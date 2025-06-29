@@ -12,6 +12,7 @@
     padding-top: 0px;
 }
 
+
 .titulo {
     display: flex;
     justify-content: center;
@@ -25,6 +26,19 @@
     position: absolute;
     top: 2%;
     z-index: -1;
+}
+
+.botones-configuracion {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    padding-bottom: 20px;
 }
 
 @keyframes respirar {
@@ -66,11 +80,33 @@
     border-radius: 50px;
     cursor: pointer;
     padding: 2px;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    bottom: 30px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
 }
+
+.boton-info {
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 2px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+}
+
+.boton-info img{
+width: 50px;
+}
+
+
 
 .botones {
     display: flex;
@@ -105,15 +141,4 @@
         margin-top: 20px;
     }
 
-    .boton-sonido {
-        background-color: white;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        padding: 2px;
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        bottom: 80px;
-    }
 }

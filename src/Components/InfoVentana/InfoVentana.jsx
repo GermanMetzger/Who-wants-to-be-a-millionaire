@@ -4,8 +4,9 @@ import busqueda from '../../assets/globe.svg'
 import cincuentaCincuenta from '../../assets/50_50.svg'
 import publico from '../../assets/publico.svg'
 import cambio from '../../assets/cambio.svg'
+import Button from '../Button/Button'
 
-export default function InfoVentana() {
+export default function InfoVentana({cerrarVentana}) {
     return (
         <div className='infoVentana'>
             <div className='infoVentanaContenido'>
@@ -19,6 +20,7 @@ export default function InfoVentana() {
                     <p><strong>+ </strong> = Increase volume</p>
                     <p><strong>I </strong> = Show/hide game information</p>
                     <p><strong>U </strong> = View Ladder</p>
+                    <p><strong>Esc </strong> = Go back to main menu</p>
                 </div>
 
                 <div>
@@ -28,6 +30,7 @@ export default function InfoVentana() {
                     <p><img src={publico} alt="audience" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = Ask the audience for their opinion</p>
                     <p><img src={cambio} alt="switch" style={{backgroundColor: 'white', padding: '5px', borderRadius: '5px'}}/> = Switch the current question</p>
                 </div>
+                <Button estadoActual='button-inactivo' children="Exit" onClick={cerrarVentana}></Button>
 
             </div>
         </div>
